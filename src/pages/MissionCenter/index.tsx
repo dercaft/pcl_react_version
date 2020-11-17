@@ -1,78 +1,56 @@
 import React from 'react';
-import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
-import { Card, Typography, Alert } from 'antd';
-import { PageContainer, PageHeaderWrapper } from '@ant-design/pro-layout';
-import { message } from 'antd';
-import ProForm, { ProFormText, ProFormDateRangePicker, ProFormSelect } from '@ant-design/pro-form';
+import { PageContainer } from '@ant-design/pro-layout';
+import { Card, Alert, Typography } from 'antd';
+import styles from './Welcome.less';
 
-const waitTime = (time = 100) =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
+const CodePreview: React.FC<{}> = ({ children }) => (
+  <pre className={styles.pre}>
+    <code>
+      <Typography.Text copyable>{children}</Typography.Text>
+    </code>
+  </pre>
+);
+
 export default (): React.ReactNode => (
-  <PageContainer content="">
+  <PageContainer>
     <Card>
-      <Typography.Title level={2} style={{ textAlign: 'center' }}>
-         创建任务
-      </Typography.Title>
-    </Card>
-    <Card>
-      <ProForm
-      onFinish={async values => {
-        await waitTime(2000);
-        console.log(values);
-        message.success('提交成功！');
-      }}
-      initialValues={{
-        name: '蚂蚁设计有限公司',
-        useMode: 'chapter',
-      }}
-    >
-      <ProForm.Group>
-        <ProFormText
-          width="m"
-          name="name"
-          label="签约客户名称"
-          tooltip="最长为 24 位"
-          placeholder="请输入名称"
-        />
-        <ProFormText width="m" name="company" label="我方公司名称" placeholder="请输入名称" />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText name="contract" width="m" label="合同名称" placeholder="请输入名称" />
-        <ProFormDateRangePicker width="m" name={['contract', 'createTime']} label="合同生效时间" />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormSelect
-          options={[
-            {
-              value: 'chapter',
-              label: '盖章后生效',
-            },
-          ]}
-          // readonly
-          width="xs"
-          name="useMode"
-          label="合同约定生效方式"
-        />
-        <ProFormSelect
-          width="xs"
-          options={[
-            {
-              value: 'time',
-              label: '履行完终止',
-            },
-          ]}
-          name="unusedMode"
-          label="合同约定失效效方式"
-        />
-      </ProForm.Group>
-      <ProFormText width="s" name="id" label="主合同编号" />
-      <ProFormText name="project" width="m" disabled label="项目名称" initialValue="xxxx项目" />
-      <ProFormText width="xs" name="mangerName" disabled label="商务经理" initialValue="启途" />
-    </ProForm>
+      <Alert
+        message="更快更强的重型组件，已经发布。"
+        type="success"
+        showIcon
+        banner
+        style={{
+          margin: -12,
+          marginBottom: 24,
+        }}
+      />
+      <Typography.Text strong>
+        高级表格{' '}
+        <a
+          href="https://procomponents.ant.design/components/table"
+          rel="noopener noreferrer"
+          target="__blank"
+        >
+          欢迎使用
+        </a>
+      </Typography.Text>
+      <CodePreview>yarn add @ant-design/pro-table</CodePreview>
+      <Typography.Text
+        strong
+        style={{
+          marginBottom: 12,
+        }}
+      >
+        高级布局{' '}
+        <a
+          href="https://procomponents.ant.design/components/layout"
+          rel="noopener noreferrer"
+          target="__blank"
+        >
+          欢迎使用
+        </a>
+      </Typography.Text>
+      <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
     </Card>
   </PageContainer>
 );

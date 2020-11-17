@@ -12,21 +12,6 @@ export function getRoutes() {
     "component": dynamic({ loader: () => import(/* webpackChunkName: '.umi__plugin-layout__Layout' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/.umi/plugin-layout/Layout.tsx'), loading: LoadingComponent}),
     "routes": [
       {
-        "path": "/MissionCenter",
-        "name": "任务中心",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__MissionCenter' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/MissionCenter'), loading: LoadingComponent}),
-        "exact": true
-      },
-      {
-        "path": "/CreateMission",
-        "name": "新建任务",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__CreateMission' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/CreateMission'), loading: LoadingComponent}),
-        "hideInMenu": "true",
-        "exact": true
-      },
-      {
         "path": "/OverView",
         "name": "总览",
         "icon": "smile",
@@ -50,16 +35,16 @@ export function getRoutes() {
       {
         "path": "/DevEnv",
         "name": "开发环境",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__DevEnv' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/DevEnv'), loading: LoadingComponent}),
-        "exact": true
-      },
-      {
-        "path": "/JupyterNotebook",
-        "name": "JupyterNotebook",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__JupyterNotebook' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/JupyterNotebook'), loading: LoadingComponent}),
-        "exact": true
+        "icon": "table",
+        "routes": [
+          {
+            "path": "/DevEnv/JupyterNotebook",
+            "name": "JupyterNotebook",
+            "icon": "smile",
+            "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__DevEnv__JupyterNotebook' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/DevEnv/JupyterNotebook'), loading: LoadingComponent}),
+            "exact": true
+          }
+        ]
       },
       {
         "path": "/AlgoManage",
@@ -70,24 +55,24 @@ export function getRoutes() {
       },
       {
         "path": "/JobManage",
-        "name": "训练管理",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__TrainManage' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/TrainManage'), loading: LoadingComponent}),
-        "exact": true
-      },
-      {
-        "path": "/TrainJobManage",
-        "name": "训练作业管理",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__TrainJobManage' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/TrainJobManage'), loading: LoadingComponent}),
-        "exact": true
-      },
-      {
-        "path": "/AutoJobManage",
-        "name": "自动化搜索作业管理",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__AutoJobManage' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/AutoJobManage'), loading: LoadingComponent}),
-        "exact": true
+        "name": "作业管理",
+        "icon": "table",
+        "routes": [
+          {
+            "path": "/JobManage/TrainJobManage",
+            "name": "训练作业管理",
+            "icon": "smile",
+            "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__JobManage__TrainJobManage' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/JobManage/TrainJobManage'), loading: LoadingComponent}),
+            "exact": true
+          },
+          {
+            "path": "/JobManage/AutoJobManage",
+            "name": "自动搜索作业管理",
+            "icon": "smile",
+            "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__JobManage__AutoJobManage' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/JobManage/AutoJobManage'), loading: LoadingComponent}),
+            "exact": true
+          }
+        ]
       },
       {
         "path": "/ModelManage",
@@ -116,13 +101,6 @@ export function getRoutes() {
         ]
       },
       {
-        "path": "/welcome",
-        "name": "welcome",
-        "icon": "smile",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Welcome' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/Welcome'), loading: LoadingComponent}),
-        "exact": true
-      },
-      {
         "path": "/admin",
         "name": "admin",
         "icon": "crown",
@@ -147,12 +125,12 @@ export function getRoutes() {
       },
       {
         "path": "/index.html",
-        "redirect": "/welcome",
+        "redirect": "/OverView",
         "exact": true
       },
       {
         "path": "/",
-        "redirect": "/welcome",
+        "redirect": "/OverView",
         "exact": true
       },
       {
