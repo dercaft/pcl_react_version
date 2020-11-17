@@ -1,4 +1,4 @@
-# Ant Design Pro
+# PCL AutoML Platform frontend , based on Ant Design Pro
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
@@ -54,4 +54,4 @@ npm test
 
 ## More
 
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
+You can view full antd-pro document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
