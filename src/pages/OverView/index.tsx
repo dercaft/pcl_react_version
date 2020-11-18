@@ -15,7 +15,6 @@ const CodePreview: React.FC<{}> = ({ children }) => (
 );
 
 export default (): React.ReactNode => (
-  <>
   <PageContainer>
     <ProCard layout="center">
       <img alt="Title" src={shower} />
@@ -43,6 +42,4 @@ export default (): React.ReactNode => (
       </ProCard>
     </ProCard>
   </PageContainer>
-
-  </>
 );

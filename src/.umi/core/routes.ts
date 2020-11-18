@@ -26,6 +26,14 @@ export function getRoutes() {
         "exact": true
       },
       {
+        "path": "/CreateMission",
+        "name": "创建任务",
+        "icon": "torch",
+        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__CreateMission' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/CreateMission'), loading: LoadingComponent}),
+        "hideInMenu": "true",
+        "exact": true
+      },
+      {
         "path": "/DataManage",
         "name": "数据管理",
         "icon": "smile",
@@ -99,29 +107,6 @@ export function getRoutes() {
             "exact": true
           }
         ]
-      },
-      {
-        "path": "/admin",
-        "name": "admin",
-        "icon": "crown",
-        "access": "canAdmin",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Admin' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/Admin'), loading: LoadingComponent}),
-        "routes": [
-          {
-            "path": "/admin/sub-page",
-            "name": "sub-page",
-            "icon": "smile",
-            "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__Welcome' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/Welcome'), loading: LoadingComponent}),
-            "exact": true
-          }
-        ]
-      },
-      {
-        "name": "list.table-list",
-        "icon": "table",
-        "path": "/list",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__ListTableList' */'/home/wuyuhang/Projects/PCL_automl/pcl_react_version/src/pages/ListTableList'), loading: LoadingComponent}),
-        "exact": true
       },
       {
         "path": "/index.html",

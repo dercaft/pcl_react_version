@@ -16,6 +16,14 @@
     component: './AutoML',
     // hideInMenu: 'true', 
   },
+  //level:01 id 021
+  {
+    path:'/CreateMission',
+    name:'创建任务',
+    icon:'torch',
+    component:'./CreateMission',
+    hideInMenu:'true',
+  },
   //level:01, id:03 
   {
     path: '/DataManage',
@@ -98,27 +106,27 @@
       },
     ],
   },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
-    routes: [
-      {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        icon: 'smile',
-        component: './Welcome',
-      },
-    ],
-  },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './ListTableList',
-  },
+  // {
+  //   path: '/admin',
+  //   name: 'admin',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   component: './Admin',
+  //   routes: [
+  //     {
+  //       path: '/admin/sub-page',
+  //       name: 'sub-page',
+  //       icon: 'smile',
+  //       component: './Welcome',
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: 'list.table-list',
+  //   icon: 'table',
+  //   path: '/list',
+  //   component: './ListTableList',
+  // },
   {
     path: '/',
     redirect: '/OverView',

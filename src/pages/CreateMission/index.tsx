@@ -1,8 +1,17 @@
-import React from 'react';
-import { Card, Typography, Alert } from 'antd';
+import React, { Children } from 'react';
+import { Card, Typography, Alert, Button } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
-import { message } from 'antd';
-import ProForm, { ProFormText, ProFormDateRangePicker, ProFormSelect } from '@ant-design/pro-form';
+import { message, Radio } from 'antd';
+import ProForm, {
+  ProFormText,
+  ProFormDatePicker,
+  ProFormTextArea,
+  ProFormCheckbox,
+  ProFormDateRangePicker,
+  ProFormSelect, 
+  ProFormField 
+  } from '@ant-design/pro-form';
+import Title from 'antd/lib/typography/Title';
 
 const waitTime = (time = 100) =>
   new Promise(resolve => {
@@ -10,11 +19,55 @@ const waitTime = (time = 100) =>
       resolve(true);
     }, time);
   });
-export default (): React.ReactNode => (
-  <PageContainer content="">
+export default (props): React.ReactNode =>{
+  const [dataType,setType]=React.useState(true)
+  let dataSelect;
+  if(dataType){
+    dataSelect=(<>
+      <ProFormText
+        width="m"
+        name="dataName"
+        label="新数据集命名"
+        tooltip="最长为 24 位"
+        placeholder="请输入名称"
+        rules={[{ required: true }]}
+      />
+      <ProFormText
+        width="xl"
+        name="dataOutput"
+        label="数据集输入位置"
+        tooltip="最长为 24 位"
+        placeholder="请选择路径"
+        rules={[{ required: true }]}
+      />
+      <ProFormText
+        width="xl"
+        name="dataInput"
+        label="数据集输出位置"
+        tooltip="最长为 24 位"
+        placeholder="请选择路径"
+        rules={[{ required: true }]}
+      />
+      </>
+      )
+  }
+  else{
+    dataSelect=(
+      <ProFormText
+        width="m"
+        name="dataSelection"
+        label="选择数据集"
+        tooltip="最长为 24 位"
+        placeholder="请输入名称"
+        rules={[{ required: true }]}
+      />)
+  }
+
+  return (
+  <PageContainer content="" >
     <Card>
-      <Typography.Title level={2} style={{ textAlign: 'center' }}>
-         创建任务
+      <Typography.Title level={3} style={{ textAlign: 'left' }}>
+         创建项目{props.query}
       </Typography.Title>
     </Card>
     <Card>
@@ -25,53 +78,41 @@ export default (): React.ReactNode => (
         message.success('提交成功！');
       }}
       initialValues={{
-        name: '蚂蚁设计有限公司',
+        name: '',
         useMode: 'chapter',
       }}
-    >
-      <ProForm.Group>
-        <ProFormText
-          width="m"
-          name="name"
-          label="签约客户名称"
-          tooltip="最长为 24 位"
-          placeholder="请输入名称"
-        />
-        <ProFormText width="m" name="company" label="我方公司名称" placeholder="请输入名称" />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText name="contract" width="m" label="合同名称" placeholder="请输入名称" />
-        <ProFormDateRangePicker width="m" name={['contract', 'createTime']} label="合同生效时间" />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormSelect
-          options={[
-            {
-              value: 'chapter',
-              label: '盖章后生效',
-            },
-          ]}
-          // readonly
-          width="xs"
-          name="useMode"
-          label="合同约定生效方式"
-        />
-        <ProFormSelect
-          width="xs"
-          options={[
-            {
-              value: 'time',
-              label: '履行完终止',
-            },
-          ]}
-          name="unusedMode"
-          label="合同约定失效效方式"
-        />
-      </ProForm.Group>
-      <ProFormText width="s" name="id" label="主合同编号" />
-      <ProFormText name="project" width="m" disabled label="项目名称" initialValue="xxxx项目" />
-      <ProFormText width="xs" name="mangerName" disabled label="商务经理" initialValue="启途" />
-    </ProForm>
+      layout="vertical"
+      >
+        <ProForm.Group>
+          <ProFormText
+            width="m"
+            name="name"
+            label="名称"
+            tooltip="最长为 24 位"
+            placeholder="请输入名称"
+            rules={[{ required: true }]}
+          />
+        </ProForm.Group>
+        <ProForm.Group>
+          <ProFormTextArea name="description" label="描述" width="l" placeholder="任务项目描述" />
+        </ProForm.Group>
+        <ProForm.Group >
+          <Typography.Text strong>
+          数据集来源
+          </Typography.Text>
+          <Radio.Group
+              value={dataType}
+              onChange={() => setType(!dataType)}
+          >
+            <Radio.Button value={true}>新建数据集</Radio.Button>
+            <Radio.Button value={false}>已有数据集</Radio.Button>
+          </Radio.Group>
+        </ProForm.Group>
+        <ProForm.Group >
+          {dataSelect}
+        </ProForm.Group>
+      </ProForm>
     </Card>
   </PageContainer>
-);
+  )
+};

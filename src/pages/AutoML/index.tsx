@@ -1,78 +1,182 @@
-import React, { Children } from 'react';
-import { Card, Typography, Alert } from 'antd';
+import React, { useRef } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import { message } from 'antd';
-import ProForm, { ProFormText, ProFormDateRangePicker, ProFormSelect } from '@ant-design/pro-form';
-import Title from 'antd/lib/typography/Title';
+import ProCard from '@ant-design/pro-card'
+import {Typography } from 'antd';
+import styles from './index.less';
+import {Link} from 'umi';
 
-const waitTime = (time = 100) =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve(true);
-    }, time);
-  });
-export default (): React.ReactNode => (
-  <PageContainer content="" >
-    <Card>
-      <Typography.Title level={2} style={{ textAlign: 'center' }}>
-         创建任务
-      </Typography.Title>
-    </Card>
-    <Card>
-      <ProForm
-      onFinish={async values => {
-        await waitTime(2000);
-        console.log(values);
-        message.success('提交成功！');
-      }}
-      initialValues={{
-        name: '蚂蚁设计有限公司',
-        useMode: 'chapter',
-      }}
-    >
-      <ProForm.Group>
-        <ProFormText
-          width="m"
-          name="name"
-          label="签约客户名称"
-          tooltip="最长为 24 位"
-          placeholder="请输入名称"
-        />
-        <ProFormText width="m" name="company" label="我方公司名称" placeholder="请输入名称" />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText name="contract" width="m" label="合同名称" placeholder="请输入名称" />
-        <ProFormDateRangePicker width="m" name={['contract', 'createTime']} label="合同生效时间" />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormSelect
-          options={[
-            {
-              value: 'chapter',
-              label: '盖章后生效',
-            },
-          ]}
-          // readonly
-          width="xs"
-          name="useMode"
-          label="合同约定生效方式"
-        />
-        <ProFormSelect
-          width="xs"
-          options={[
-            {
-              value: 'time',
-              label: '履行完终止',
-            },
-          ]}
-          name="unusedMode"
-          label="合同约定失效效方式"
-        />
-      </ProForm.Group>
-      <ProFormText width="s" name="id" label="主合同编号" />
-      <ProFormText name="project" width="m" disabled label="项目名称" initialValue="xxxx项目" />
-      <ProFormText width="xs" name="mangerName" disabled label="商务经理" initialValue="启途" />
-    </ProForm>
-    </Card>
-  </PageContainer>
+import { PlusOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { Button, Tag, Space, Menu, Dropdown } from 'antd';
+import ProTable, { TableDropdown } from '@ant-design/pro-table';
+import request from 'umi-request';
+
+import shower from '../../../public/banner1.jpg'
+
+const columns = [
+  {
+    dataIndex: 'index',
+    valueType: 'indexBorder',
+    width: 48,
+  },
+  {
+    title: '标题',
+    dataIndex: 'title',
+    copyable: true,
+    ellipsis: true,
+    tip: '标题过长会自动收缩',
+    formItemProps: {
+      rules: [
+        {
+          required: true,
+          message: '此项为必填项',
+        },
+      ],
+    },
+    width: '30%',
+    search: false,
+  },
+  {
+    title: '状态',
+    dataIndex: 'state',
+    initialValue: 'open',
+    filters: true,
+    valueEnum: {
+      all: {
+        text: '全部',
+        status: 'Default',
+      },
+      open: {
+        text: '未解决',
+        status: 'Error',
+      },
+      closed: {
+        text: '已解决',
+        status: 'Success',
+      },
+      processing: {
+        text: '解决中',
+        status: 'Processing',
+      },
+    },
+  },
+  {
+    title: '标签',
+    dataIndex: 'labels',
+    render: (_, row) => (
+      <Space>
+        {row.labels.map(({ name, color }) => (
+          <Tag color={color} key={name}>
+            {name}
+          </Tag>
+        ))}
+      </Space>
+    ),
+  },
+  {
+    title: '创建时间',
+    key: 'since',
+    dataIndex: 'created_at',
+    valueType: 'date',
+  },
+  {
+    title: '操作',
+    valueType: 'option',
+    render: (text, row, _, action) => [
+      <a href={row.url} target="_blank" rel="noopener noreferrer" key="link">
+        链路
+      </a>,
+      <a href={row.url} target="_blank" rel="noopener noreferrer" key="view">
+        查看
+      </a>,
+      <TableDropdown
+        key="actionGroup"
+        onSelect={() => action.reload()}
+        menus={[
+          {
+            key: 'copy',
+            name: '复制',
+          },
+          {
+            key: 'delete',
+            name: '删除',
+          },
+        ]}
+      />,
+    ],
+  },
+];
+const menu = (
+  <Menu>
+    <Menu.Item key="1">1st item</Menu.Item>
+    <Menu.Item key="2">2nd item</Menu.Item>
+    <Menu.Item key="3">3rd item</Menu.Item>
+  </Menu>
 );
+
+export default (): React.ReactNode => {
+  const actionRef = useRef();
+  return (
+    <PageContainer>
+      <ProCard style={{ marginTop: 8 }} gutter={8} layout="center" title="" bordered headerBordered>
+        <ProCard colSpan="auto" layout="center" bordered>    
+          <Link to="/CreateMission?id=Image Classfiction">
+            图像分类
+          </Link>
+        </ProCard>
+        <ProCard colSpan="auto" layout="center" bordered>
+          <Link to="/CreateMission?id=Image Classfiction">
+          物体检测
+          </Link>
+        </ProCard>
+        
+        <ProCard colSpan="auto" layout="center" bordered>    
+          <Link to="/CreateMission?id=Image Classfiction">
+            预测分析
+          </Link>
+        </ProCard>
+        
+        <ProCard colSpan="auto" layout="center" bordered>
+          <Link to="/CreateMission?id=Image Classfiction">
+            声音分类
+          </Link>    
+        </ProCard>
+        
+        <ProCard colSpan="auto" layout="center" bordered>    
+          <Link to="/CreateMission?id=Image Classfiction">
+          文本分类
+          </Link>
+        </ProCard>
+        
+      </ProCard>
+      <ProCard gutter={8} title="任务列表" layout="center" bordered headerBordered>
+        <ProTable
+        columns={columns}
+        actionRef={actionRef}
+        request={async (params = {}) =>
+          request('https://proapi.azurewebsites.net/github/issues', {
+            params,
+          })
+        }
+        rowKey="id"
+        search={{
+          labelWidth: 'auto',
+        }}
+        pagination={{
+          pageSize: 5,
+        }}
+        dateFormatter="string"
+        toolBarRender={() => [
+          <Button key="button" icon={<PlusOutlined />} type="primary">
+            新建
+          </Button>,
+          <Dropdown key="menu" overlay={menu}>
+            <Button>
+              <EllipsisOutlined />
+            </Button>
+          </Dropdown>,
+        ]}
+      />        
+      </ProCard>
+    </PageContainer>
+  );
+}
