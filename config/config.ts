@@ -44,5 +44,7 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  // ssr: {},
+  // dynamicImport: {},
   exportStatic: {},
 });

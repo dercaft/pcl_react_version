@@ -66,11 +66,6 @@ export default (props): React.ReactNode =>{
   return (
   <PageContainer content="" >
     <Card>
-      <Typography.Title level={3} style={{ textAlign: 'left' }}>
-         创建项目{props.query}
-      </Typography.Title>
-    </Card>
-    <Card>
       <ProForm
       onFinish={async values => {
         await waitTime(2000);

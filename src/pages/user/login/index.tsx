@@ -71,10 +71,10 @@ const Login: React.FC<{}> = () => {
           <div className={styles.header}>
             <Link to="/">
               <img alt="logo" className={styles.logo} src="/logo.svg" />
-              <span className={styles.title}>Ant Design</span>
+              <span className={styles.title}>鹏城实验室自动机器学习平台</span>
             </Link>
           </div>
-          <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+          <div className={styles.desc}>鹏城实验室自动机器学习平台</div>
         </div>
 
         <div className={styles.main}>
@@ -102,23 +102,6 @@ const Login: React.FC<{}> = () => {
               handleSubmit(values);
             }}
           >
-            <Tabs activeKey={type} onChange={setType}>
-              <Tabs.TabPane
-                key="account"
-                tab={intl.formatMessage({
-                  id: 'pages.login.accountLogin.tab',
-                  defaultMessage: '账户密码登录',
-                })}
-              />
-              <Tabs.TabPane
-                key="mobile"
-                tab={intl.formatMessage({
-                  id: 'pages.login.phoneLogin.tab',
-                  defaultMessage: '手机号登录',
-                })}
-              />
-            </Tabs>
-
             {status === 'error' && loginType === 'account' && (
               <LoginMessage
                 content={intl.formatMessage({
@@ -177,84 +160,6 @@ const Login: React.FC<{}> = () => {
             )}
 
             {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
-            {type === 'mobile' && (
-              <>
-                <ProFormText
-                  fieldProps={{
-                    size: 'large',
-                    prefix: <MobileTwoTone className={styles.prefixIcon} />,
-                  }}
-                  name="mobile"
-                  placeholder={intl.formatMessage({
-                    id: 'pages.login.phoneNumber.placeholder',
-                    defaultMessage: '手机号',
-                  })}
-                  rules={[
-                    {
-                      required: true,
-                      message: (
-                        <FormattedMessage
-                          id="pages.login.phoneNumber.required"
-                          defaultMessage="请输入手机号！"
-                        />
-                      ),
-                    },
-                    {
-                      pattern: /^1\d{10}$/,
-                      message: (
-                        <FormattedMessage
-                          id="pages.login.phoneNumber.invalid"
-                          defaultMessage="手机号格式错误！"
-                        />
-                      ),
-                    },
-                  ]}
-                />
-                <ProFormCaptcha
-                  fieldProps={{
-                    size: 'large',
-                    prefix: <MailTwoTone className={styles.prefixIcon} />,
-                  }}
-                  captchaProps={{
-                    size: 'large',
-                  }}
-                  placeholder={intl.formatMessage({
-                    id: 'pages.login.captcha.placeholder',
-                    defaultMessage: '请输入验证码',
-                  })}
-                  captchaTextRender={(timing, count) =>
-                    timing
-                      ? `${count} ${intl.formatMessage({
-                          id: 'pages.getCaptchaSecondText',
-                          defaultMessage: '获取验证码',
-                        })}`
-                      : intl.formatMessage({
-                          id: 'pages.login.phoneLogin.getVerificationCode',
-                          defaultMessage: '获取验证码',
-                        })
-                  }
-                  name="captcha"
-                  rules={[
-                    {
-                      required: true,
-                      message: (
-                        <FormattedMessage
-                          id="pages.login.captcha.required"
-                          defaultMessage="请输入验证码！"
-                        />
-                      ),
-                    },
-                  ]}
-                  onGetCaptcha={async (mobile) => {
-                    const result = await getFakeCaptcha(mobile);
-                    if (result === false) {
-                      return;
-                    }
-                    message.success('获取验证码成功！验证码为：1234');
-                  }}
-                />
-              </>
-            )}
             <div
               style={{
                 marginBottom: 24,
