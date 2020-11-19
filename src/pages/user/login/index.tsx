@@ -1,18 +1,16 @@
 import {
   AlipayCircleOutlined,
   LockTwoTone,
-  MailTwoTone,
-  MobileTwoTone,
   TaobaoCircleOutlined,
   UserOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
-import { Alert, Space, message, Tabs } from 'antd';
+import { Alert, Space, message } from 'antd';
 import React, { useState } from 'react';
-import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
+import ProForm, { ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, Link, history, FormattedMessage, SelectLang } from 'umi';
 import Footer from '@/components/Footer';
-import { fakeAccountLogin, getFakeCaptcha, LoginParamsType } from '@/services/login';
+import { fakeAccountLogin, LoginParamsType,accountLogin } from '@/services/login';
 
 import styles from './index.less';
 
@@ -48,7 +46,8 @@ const Login: React.FC<{}> = () => {
     setSubmitting(true);
     try {
       // 登录
-      const msg = await fakeAccountLogin({ ...values, type });
+      // const msg = await fakeAccountLogin({ ...values, type });
+      const msg = await accountLogin({ ...values, type });
       if (msg.status === 'ok') {
         message.success('登录成功！');
         goto();
