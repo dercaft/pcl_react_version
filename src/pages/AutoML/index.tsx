@@ -110,6 +110,7 @@ const menu = (
     <Menu.Item key="1">1st item</Menu.Item>
     <Menu.Item key="2">2nd item</Menu.Item>
     <Menu.Item key="3">3rd item</Menu.Item>
+    <Menu.Item key="4">4th item</Menu.Item>
   </Menu>
 );
 
